@@ -4,13 +4,20 @@ __pycache__/
 *.pyo
 
 # Virtual environment
-venv/
-env/
-.venv/
+backend/venv/
 
 # Environment variables
-.env
+backend/.env
 
-# OS files
+# Node
+frontend/node_modules/
+frontend/dist/
+npm-debug.log*
+
+# OS
 Thumbs.db
 .DS_Store
+
+# IDE
+.vscode/
+.idea/
