@@ -46,7 +46,7 @@ DEFAULTS = {
 
 def _build_system_prompt() -> str:
     today = date.today().isoformat()
-    return (
+    return  (
         "You are a pharmaceutical Quality Management System (QMS) assistant. "
         "Extract complaint information from the user's text and return ONLY valid JSON. "
         f"Today's date is {today}.\n\n"
@@ -73,7 +73,9 @@ def _build_system_prompt() -> str:
         "1. Return pure JSON only — no markdown, no code fences, no explanation.\n"
         "2. Every value must be a non-empty string.\n"
         "3. Prefer explicit text over defaults.\n"
-        "4. Normalize all dates to YYYY-MM-DD."
+        "4. Normalize all dates to YYYY-MM-DD.\n"
+        "5. If the text contains MULTIPLE distinct complaints, extract only the FIRST one and ignore the rest.\n"
+        "6. Never refuse or ask questions — always return a JSON object, even if information is minimal."
     )
 
 

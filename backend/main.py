@@ -77,9 +77,27 @@ VALID_FIELDS = {
 
 
 def run_extraction(text: str) -> ComplaintExtract:
-    data = run_extraction_graph(text)
-    return ComplaintExtract(**data)
-
+    try:
+        data = run_extraction_graph(text)
+        return ComplaintExtract(**data)
+    except Exception as e:
+        today = date.today().isoformat()
+        defaults = {
+            "complaint_source": "Distributor",
+            "customer_name": "Unknown Customer",
+            "product_name": "Unknown Product",
+            "product_strength": "Not specified",
+            "batch_number": "Not specified",
+            "manufacturing_date": "Not specified",
+            "expiry_date": "Not specified",
+            "quantity_affected": "Not specified",
+            "complaint_type": "Quality",
+            "complaint_date": today,
+            "complaint_description": f"Extraction failed: {str(e)[:100]}. Please retry or enter manually.",
+            "initial_severity": "Medium",
+            "priority": "Normal",
+        }
+        return ComplaintExtract(**defaults)
 
 def extract_text_from_file(filename: str, content: bytes) -> str:
     name = filename.lower()
